@@ -1,8 +1,6 @@
-
-
 ## Ausnahmebehandlung
 
-Ein sehr wichtiger Teil des Verhaltens von Koroutinen ist ihre Ausnahmebehandlung. Genau wie ein Programm abbricht, wenn eine nicht abgefangene Ausnahme durchrutscht, so bricht auch eine Koroutine im Falle einer nicht abgefangenen Ausnahme ab. Dieses Verhalten ist nicht neu: zum Beispiel enden auch Threads in solchen Fällen. Der Unterschied besteht darin, dass die Ersteller von Koroutinen auch ihre Elternelemente abbrechen, und jedes abgebrochene Elternelement bricht alle seine untergeordneten Elemente ab. Schauen wir uns das untenstehende Beispiel an. Sobald eine Koroutine eine Ausnahme erhält, bricht sie ab und leitet die Ausnahme an ihr Elternelement (`launch`) weiter. Das Elternelement bricht ab und beendet alle seine untergeordneten Elemente, dann leitet es die Ausnahme an sein übergeordnetes Element (`runBlocking`) weiter. `runBlocking` ist eine Wurzelkoroutine (es hat kein übergeordnetes Element), also beendet es einfach das Programm (`runBlocking` wirft die Ausnahme erneut).
+Ein sehr wichtiger Teil des Verhaltens von Coroutinen ist ihre Ausnahmebehandlung. Genau wie ein Programm abbricht, wenn eine nicht abgefangene Ausnahme durchrutscht, so bricht auch eine Koroutine im Falle einer nicht abgefangenen Ausnahme ab. Dieses Verhalten ist nicht neu: zum Beispiel enden auch Threads in solchen Fällen. Der Unterschied besteht darin, dass die Ersteller von Coroutinen auch ihre Elternelemente abbrechen, und jedes abgebrochene Elternelement bricht alle seine untergeordneten Elemente ab. Schauen wir uns das untenstehende Beispiel an. Sobald eine Koroutine eine Ausnahme erhält, bricht sie ab und leitet die Ausnahme an ihr Elternelement (`launch`) weiter. Das Elternelement bricht ab und beendet alle seine untergeordneten Elemente, dann leitet es die Ausnahme an sein übergeordnetes Element (`runBlocking`) weiter. `runBlocking` ist eine Wurzelkoroutine (es hat kein übergeordnetes Element), also beendet es einfach das Programm (`runBlocking` wirft die Ausnahme erneut).
 
 {crop-start: 5, crop-end: 29}
 ```kotlin
@@ -40,14 +38,14 @@ fun main(): Unit = runBlocking {
 ```
 
 
-Das Hinzufügen weiterer `launch` Koroutinen würde nichts ändern. Die Ausnahmeausbreitung ist bidirektional: Die Ausnahme wird vom Kind zum Elternteil propagiert, und wenn diese Elternteile abgebrochen werden, brechen sie ihre Kinder ebenfalls ab. Daher werden, wenn die Ausnahmeausbreitung nicht gestoppt wird, alle Koroutinen in der Hierarchie abgebrochen.
+Das Hinzufügen weiterer `launch` Coroutinen würde nichts ändern. Die Ausnahmeausbreitung ist bidirektional: Die Ausnahme wird vom Kind zum Elternteil propagiert, und wenn diese Elternteile abgebrochen werden, brechen sie ihre Kinder ebenfalls ab. Daher werden, wenn die Ausnahmeausbreitung nicht gestoppt wird, alle Coroutinen in der Hierarchie abgebrochen.
 
 {width: 100%}
 ![](calcellation.png)
 
-### Bitte unterbrechen Sie meine Koroutinen nicht
+### Bitte unterbrechen Sie meine Coroutinen nicht
 
-Es ist hilfreich, eine Ausnahme zu fangen, bevor sie eine Koroutine unterbricht, aber später ist es zu spät. Die Kommunikation erfolgt über einen Job, daher ist das Umgeben eines Koroutinen-Builder mit einem try-catch überhaupt nicht hilfreich.
+Es ist hilfreich, eine Ausnahme zu fangen, bevor sie eine Koroutine unterbricht, aber später ist es zu spät. Die Kommunikation erfolgt über einen Job, daher ist das Umgeben eines Coroutinen-Builder mit einem try-catch überhaupt nicht hilfreich.
 
 {crop-start: 5, crop-end: 21}
 ```kotlin
@@ -220,7 +218,7 @@ suspend fun notifyAnalytics(actions: List<UserAction>) =
 ```
 
 
-Eine weitere Möglichkeit, die Ausnahme-Weiterleitung zu stoppen, besteht darin, `coroutineScope` zu verwenden. Anstatt einen übergeordneten Prozess zu beeinflussen, wirft diese Funktion eine Ausnahme, die mit try-catch eingefangen werden kann (im Gegensatz zu Koroutinen-Erzeugern). Beides wird im nächsten Kapitel beschrieben.
+Eine weitere Möglichkeit, die Ausnahme-Weiterleitung zu stoppen, besteht darin, `coroutineScope` zu verwenden. Anstatt einen übergeordneten Prozess zu beeinflussen, wirft diese Funktion eine Ausnahme, die mit try-catch eingefangen werden kann (im Gegensatz zu Coroutinen-Erzeugern). Beides wird im nächsten Kapitel beschrieben.
 
 Seien Sie vorsichtig, `supervisorScope` kann nicht durch `withContext(SupervisorJob())` ersetzt werden! Schauen Sie sich den folgenden Codeausschnitt an.
 
@@ -310,7 +308,7 @@ suspend fun main(): Unit = coroutineScope {
 ```
 
 
-Im obigen Ausschnitt starten wir zwei Koroutinen mit Erstellern an den Positionen 1 und 4. An Punkt 3 werfen wir eine `MyNonPropagatingException` Ausnahme, die ein Subtyp von `CancellationException` ist. Diese Ausnahme wird von `launch` (gestartet bei 1) eingefangen. Dieser Ersteller storniert sich selbst und anschließend auch seine Kinder, nämlich den Ersteller, der bei 2 definiert ist. Das bei 4 gestartete `launch` ist nicht betroffen, daher gibt es "Wird gedruckt" nach 2 Sekunden aus.
+Im obigen Ausschnitt starten wir zwei Coroutinen mit Erstellern an den Positionen 1 und 4. An Punkt 3 werfen wir eine `MyNonPropagatingException` Ausnahme, die ein Subtyp von `CancellationException` ist. Diese Ausnahme wird von `launch` (gestartet bei 1) eingefangen. Dieser Ersteller storniert sich selbst und anschließend auch seine Kinder, nämlich den Ersteller, der bei 2 definiert ist. Das bei 4 gestartete `launch` ist nicht betroffen, daher gibt es "Wird gedruckt" nach 2 Sekunden aus.
 
 ### Coroutine-Ausnahmehandler
 

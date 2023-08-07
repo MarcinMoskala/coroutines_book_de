@@ -1,4 +1,3 @@
-
 ## Erstellen eines Coroutine-Scope
 
 In vorherigen Kapiteln haben wir über die Tools gelernt, die benötigt werden, um einen passenden Coroutine-Scope zu erstellen. Jetzt ist es an der Zeit, dieses Wissen zusammenzufassen und zu sehen, wie es typischerweise verwendet wird. Wir werden zwei gängige Beispiele sehen: eines für Android und eines für die Backend-Entwicklung.
@@ -28,7 +27,7 @@ class SomeClass : CoroutineScope {
 ```
 
 
-Dieser Ansatz ist jedoch nicht sehr beliebt. Einerseits ist er praktisch; andererseits ist es problematisch, dass wir in einer solchen Klasse direkt andere `CoroutineScope` Methoden wie `cancel` oder `ensureActive` aufrufen können. Selbst versehentlich könnte jemand den gesamten Bereich abbrechen, und die Koroutinen werden nicht mehr starten. Stattdessen bevorzugen wir generell, einen Coroutine-Bereich als Objekt in einer Eigenschaft zu halten und ihn zum Aufrufen von Coroutine-Erstellern zu verwenden.
+Dieser Ansatz ist jedoch nicht sehr beliebt. Einerseits ist er praktisch; andererseits ist es problematisch, dass wir in einer solchen Klasse direkt andere `CoroutineScope` Methoden wie `cancel` oder `ensureActive` aufrufen können. Selbst versehentlich könnte jemand den gesamten Bereich abbrechen, und die Coroutinen werden nicht mehr starten. Stattdessen bevorzugen wir generell, einen Coroutine-Bereich als Objekt in einer Eigenschaft zu halten und ihn zum Aufrufen von Coroutine-Erstellern zu verwenden.
 
 
 ```kotlin
@@ -70,7 +69,7 @@ internal class ContextScope(
 
 ### Konstruktion eines Scopes in Android
 
-In den meisten Android-Anwendungen nutzen wir eine Architektur, die eine Abstammung von MVC hat: gegenwärtig hauptsächlich MVVM oder MVP. In diesen Architekturen extrahieren wir die Präsentationslogik in Objekte, die wir ViewModels oder Presenters nennen. Hier werden im Allgemeinen Koroutinen gestartet. In anderen Schichten, wie in Use Cases oder Repositories, nutzen wir in der Regel suspendierende Funktionen. Koroutinen könnten auch in Fragments oder Activities gestartet werden. Unabhängig davon, wo auf Android Koroutinen gestartet werden, wird ihre Konstruktion wahrscheinlich gleich sein. Nehmen wir zum Beispiel ein `MainViewModel`: Angenommen, es muss einige Daten in `onCreate` abrufen (das aufgerufen wird, wenn ein Benutzer den Bildschirm betritt). Dieser Datenabruf muss in einer Koroutine stattfinden, die auf einem Scope-Objekt aufgerufen werden muss. Wir werden einen Scope im `BaseViewModel` konstruieren, so dass er nur einmal für alle ViewModels definiert wird. So können wir im `MainViewModel` einfach die `scope`-Eigenschaft aus dem `BaseViewModel` nutzen.
+In den meisten Android-Anwendungen nutzen wir eine Architektur, die eine Abstammung von MVC hat: gegenwärtig hauptsächlich MVVM oder MVP. In diesen Architekturen extrahieren wir die Präsentationslogik in Objekte, die wir ViewModels oder Presenters nennen. Hier werden im Allgemeinen Coroutinen gestartet. In anderen Schichten, wie in Use Cases oder Repositories, nutzen wir in der Regel suspendierende Funktionen. Coroutinen könnten auch in Fragments oder Activities gestartet werden. Unabhängig davon, wo auf Android Coroutinen gestartet werden, wird ihre Konstruktion wahrscheinlich gleich sein. Nehmen wir zum Beispiel ein `MainViewModel`: Angenommen, es muss einige Daten in `onCreate` abrufen (das aufgerufen wird, wenn ein Benutzer den Bildschirm betritt). Dieser Datenabruf muss in einer Koroutine stattfinden, die auf einem Scope-Objekt aufgerufen werden muss. Wir werden einen Scope im `BaseViewModel` konstruieren, so dass er nur einmal für alle ViewModels definiert wird. So können wir im `MainViewModel` einfach die `scope`-Eigenschaft aus dem `BaseViewModel` nutzen.
 
 
 ```kotlin
@@ -125,7 +124,7 @@ abstract class BaseViewModel : ViewModel() {
 ```
 
 
-Besser noch, es ist üblich, nicht den gesamten Scope, sondern nur seine Unterelemente zu stornieren. Dank dem, solange dieses ViewModel aktiv ist, können neue Koroutinen auf seiner `scope` Eigenschaft starten.
+Besser noch, es ist üblich, nicht den gesamten Scope, sondern nur seine Unterelemente zu stornieren. Dank dem, solange dieses ViewModel aktiv ist, können neue Coroutinen auf seiner `scope` Eigenschaft starten.
 
 
 ```kotlin
@@ -140,7 +139,7 @@ abstract class BaseViewModel : ViewModel() {
 ```
 
 
-Wir möchten auch, dass verschiedene Koroutinen, die in diesem Bereich gestartet werden, unabhängig sind. Wenn wir `Job` verwenden, werden der Elternjob und alle seine anderen Kinderjobs abgebrochen, wenn einer der Kinderjobs aufgrund eines Fehlers abgebrochen wird. Selbst wenn beim Laden der Benutzerdaten eine Ausnahme auftrat, sollte uns das nicht davon abhalten, die Nachrichten zu sehen. Um eine solche Unabhängigkeit zu haben, sollten wir `SupervisorJob` anstelle von `Job` verwenden.
+Wir möchten auch, dass verschiedene Coroutinen, die in diesem Bereich gestartet werden, unabhängig sind. Wenn wir `Job` verwenden, werden der Elternjob und alle seine anderen Kinderjobs abgebrochen, wenn einer der Kinderjobs aufgrund eines Fehlers abgebrochen wird. Selbst wenn beim Laden der Benutzerdaten eine Ausnahme auftrat, sollte uns das nicht davon abhalten, die Nachrichten zu sehen. Um eine solche Unabhängigkeit zu haben, sollten wir `SupervisorJob` anstelle von `Job` verwenden.
 
 
 ```kotlin

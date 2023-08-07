@@ -1,5 +1,4 @@
-
-## Einblick in `Flow`
+## Einblick in Flow
 
 Kotlin Coroutines Flow ist ein weitaus einfacheres Konzept, als die meisten Entwickler annehmen. Es handelt sich lediglich um eine Definition der auszuführenden Operationen. Es ähnelt einem suspendierenden Lambda-Ausdruck, enthält jedoch einige zusätzliche Elemente. In diesem Kapitel werde ich Ihnen Schritt für Schritt zeigen, wie Sie die `Flow`-Schnittstelle und den `flow`-Builder durch die Umwandlung eines Lambda-Ausdrucks implementieren können. Dies sollte Ihnen ein tiefgehendes Verständnis dafür vermitteln, wie Flow funktioniert. Dieses Kapitel richtet sich an neugierige Personen, die die Werkzeuge, die sie verwenden, wirklich verstehen möchten. Falls das nicht auf Sie zutrifft, können Sie dieses Kapitel gerne überspringen. Sollten Sie sich jedoch entscheiden, weiterzulesen, hoffe ich, dass es Ihnen Freude bereitet.
 

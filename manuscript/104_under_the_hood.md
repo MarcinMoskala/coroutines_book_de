@@ -1,10 +1,8 @@
+## Coroutinen unter der Haube
 
+Es gibt eine bestimmte Art von Person, die nicht akzeptieren kann, dass ein Auto einfach nur gefahren wird. Sie müssen unter die Haube schauen, um zu verstehen, wie es funktioniert. Ich bin eine dieser Personen, also musste ich einfach herausfinden, wie Coroutinen arbeiten. Wenn Sie auch so sind, werden Sie dieses Kapitel genießen. Wenn nicht, können Sie es einfach überspringen.
 
-## Koroutinen unter der Haube
-
-Es gibt eine bestimmte Art von Person, die nicht akzeptieren kann, dass ein Auto einfach nur gefahren wird. Sie müssen unter die Haube schauen, um zu verstehen, wie es funktioniert. Ich bin eine dieser Personen, also musste ich einfach herausfinden, wie Koroutinen arbeiten. Wenn Sie auch so sind, werden Sie dieses Kapitel genießen. Wenn nicht, können Sie es einfach überspringen.
-
-Dieses Kapitel führt keine neuen Werkzeuge ein, die Sie verwenden könnten. Es ist rein erläuternd. Es versucht zu erklären, wie Koroutinen auf einem zufriedenstellenden Niveau arbeiten. Die Schlüssellektionen sind:
+Dieses Kapitel führt keine neuen Werkzeuge ein, die Sie verwenden könnten. Es ist rein erläuternd. Es versucht zu erklären, wie Coroutinen auf einem zufriedenstellenden Niveau arbeiten. Die Schlüssellektionen sind:
 - Suspendierende Funktionen sind wie Zustandsmaschinen, mit einem möglichen Zustand am Anfang der Funktion und nach jedem Aufruf einer suspendierenden Funktion.
 - Sowohl die den Zustand identifizierende Zahl als auch die lokalen Daten werden im Kontinuationsobjekt aufbewahrt.
 - Die Fortsetzung einer Funktion dekoriert eine Fortsetzung ihrer Aufruffunktion; als Ergebnis repräsentieren all diese Fortsetzungen einen Aufrufstapel, der verwendet wird, wenn wir eine Funktion fortsetzen oder eine fortgesetzte Funktion beenden.
@@ -113,7 +111,7 @@ fun myFunction(continuation: Continuation<Unit>): Any {
 }
 ```
 
-Das letzte wichtige Element wird ebenfalls in dem oben gezeigten Schnipsel präsentiert. Wenn `delay` ausgesetzt wird, gibt es `COROUTINE_SUSPENDED` zurück, dann gibt `myFunction` `COROUTINE_SUSPENDED` zurück; das Gleiche machen die Funktion, die diese Funktion aufgerufen hat, und die Funktion, die jene Funktion aufgerufen hat, und alle anderen Funktionen bis nach ganz oben auf dem Aufrufstapel[^104_4]. So endet eine Aussetzung all diese Funktionen und lässt den Thread für andere ausführbare Elemente (einschließlich Koroutinen) zur Verfügung.
+Das letzte wichtige Element wird ebenfalls in dem oben gezeigten Schnipsel präsentiert. Wenn `delay` ausgesetzt wird, gibt es `COROUTINE_SUSPENDED` zurück, dann gibt `myFunction` `COROUTINE_SUSPENDED` zurück; das Gleiche machen die Funktion, die diese Funktion aufgerufen hat, und die Funktion, die jene Funktion aufgerufen hat, und alle anderen Funktionen bis nach ganz oben auf dem Aufrufstapel[^104_4]. So endet eine Aussetzung all diese Funktionen und lässt den Thread für andere ausführbare Elemente (einschließlich Coroutinen) zur Verfügung.
 
 Bevor wir weitergehen, analysieren wir den obigen Code. Was würde passieren, wenn dieser `delay` Aufruf `COROUTINE_SUSPENDED` nicht zurückgeben würde? Was wäre, wenn es stattdessen einfach `Unit` zurückgeben würde (wir wissen, dass es das nicht tut, aber stellen wir uns das mal vor)? Beachten Sie, dass, wenn die Verzögerung einfach `Unit` zurückgeben würde, wir einfach zum nächsten Zustand übergehen würden, und die Funktion würde sich genauso wie jede andere verhalten.
 
@@ -624,7 +622,7 @@ Welche Kosten entstehen durch die Verwendung von suspendierenden Funktionen anst
 
 ### Zusammenfassung
 
-Was tatsächlich dahinter steckt, ist komplizierter als ich es beschrieben habe, aber ich hoffe, dass Sie einen Einblick in die Interna von Koroutinen erhalten haben. Die wichtigsten Erkenntnisse sind:
+Was tatsächlich dahinter steckt, ist komplizierter als ich es beschrieben habe, aber ich hoffe, dass Sie einen Einblick in die Interna von Coroutinen erhalten haben. Die wichtigsten Erkenntnisse sind:
 - Suspendierende Funktionen gleichen Zustandsmaschinen, mit einem möglichen Zustand zu Beginn der Funktion und nach jedem Aufruf einer suspendierenden Funktion.
 - Sowohl das Label, das den Zustand kennzeichnet, als auch die lokalen Daten werden im Kontinuationsobjekt gespeichert.
 - Die Kontinuation einer Funktion erweitert die Kontinuation ihrer aufrufenden Funktion; als Ergebnis repräsentieren all diese Kontinuationen einen Aufrufstapel, der verwendet wird, wenn wir fortsetzen oder eine fortgesetzte Funktion abschließen.

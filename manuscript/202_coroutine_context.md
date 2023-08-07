@@ -1,4 +1,3 @@
-
 ## Coroutine-Kontext
 
 Wenn Sie sich die Definitionen der Coroutine builders ansehen, werden Sie feststellen, dass ihr erster Parameter vom Typ `CoroutineContext` ist.
@@ -33,7 +32,7 @@ public interface Continuation<in T> {
 ```
 
 
-`Continuation` enthält ebenfalls `CoroutineContext`. Dieser Typ wird von den wichtigsten Kotlin Koroutinen Elemente verwendet. Das muss ein wirklich wichtiges Konzept sein, also was ist es?
+`Continuation` enthält ebenfalls `CoroutineContext`. Dieser Typ wird von den wichtigsten Kotlin Coroutinen Elemente verwendet. Das muss ein wirklich wichtiges Konzept sein, also was ist es?
 
 ### `CoroutineContext` Interface
 

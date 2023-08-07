@@ -1,4 +1,3 @@
-
 ## Heiße und kalte Datenquellen
 
 Kotlin Coroutines hatten ursprünglich nur `Channel`, aber die Entwickler bemerkten, dass dies nicht ausreichend war. Channels sind ein *heißer* Strom von Werten, aber oft benötigen wir einen Strom, der *kalt* ist.

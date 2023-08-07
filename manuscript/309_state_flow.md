@@ -379,7 +379,7 @@ suspend fun main() = coroutineScope {
 }
 ```
 
-Auf Android wird StateFlow als moderne Alternative zu LiveData verwendet. Erstens hat es volle Unterstützung für Koroutinen. Zweitens hat es einen Anfangswert, so dass es nicht notwendig ist, dass es null sein kann. Daher wird StateFlow oft in ViewModels verwendet, um deren Zustand darzustellen. Dieser Zustand wird beobachtet, und eine View wird entsprechend dieser Basis angezeigt und aktualisiert.
+Auf Android wird StateFlow als moderne Alternative zu LiveData verwendet. Erstens hat es volle Unterstützung für Coroutinen. Zweitens hat es einen Anfangswert, so dass es nicht notwendig ist, dass es null sein kann. Daher wird StateFlow oft in ViewModels verwendet, um deren Zustand darzustellen. Dieser Zustand wird beobachtet, und eine View wird entsprechend dieser Basis angezeigt und aktualisiert.
 
 ```kotlin
 class LatestNewsViewModel(

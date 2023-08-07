@@ -1,4 +1,3 @@
-
 ## Abbruch
 
 Eine sehr wichtige Funktionalität von Kotlin Coroutines ist der *Abbruch*. Er ist so wichtig, dass einige Klassen und Bibliotheken Unterbrechungsfunktionen hauptsächlich zur Unterstützung des Abbruchs verwenden[^204_1]. Es gibt einen guten Grund dafür: Ein guter Abbruchmechanismus ist Gold wert[^204_2]. Einen Thread einfach abzubrechen, ist eine schreckliche Lösung, da es eine Möglichkeit geben sollte, Verbindungen zu schließen und Ressourcen freizugeben. Es ist auch nicht praktisch, Entwickler ständig dazu zu zwingen, zu überprüfen, ob ein bestimmter Zustand noch aktiv ist. Das Problem des Abbruchs wartete sehr lange auf eine gute Lösung, aber was Kotlin Coroutines bietet, ist überraschend einfach: sie sind benutzerfreundlich und sicher. Dies ist der beste Abbruchmechanismus, den ich in meiner Karriere gesehen habe. Schauen wir uns das mal an.

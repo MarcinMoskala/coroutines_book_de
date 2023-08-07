@@ -1,4 +1,3 @@
-
 ## Flow-Verarbeitung
 
 Wir haben Flow als Rohr dargestellt, durch das Werte fließen. Dabei können sie auf verschiedene Weisen verändert werden: ausgelassen, vervielfacht, umgewandelt oder kombiniert. Diese Operationen zwischen der Erzeugung des Flows und der Terminaloperation werden *Flow-Verarbeitung* genannt. In diesem Kapitel werden wir die Funktionen kennenlernen, die wir dafür verwenden.

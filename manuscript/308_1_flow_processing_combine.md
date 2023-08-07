@@ -1,4 +1,3 @@
-
 ### `merge`, `zip` und `combine`
 
 Lassen Sie uns über die Kombination von zwei Datenströmen zu einem sprechen. Es gibt mehrere Möglichkeiten, dies zu erreichen. Die einfachste besteht darin, die Elemente aus zwei Datenströmen zu einem zu verschmelzen. Es werden keine Änderungen vorgenommen, egal aus welchem Datenstrom die Elemente kommen. Hierfür nutzen wir die globale `merge` Funktion.

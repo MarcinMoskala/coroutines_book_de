@@ -1,4 +1,3 @@
-
 ## Channel
 
 Die Channel API wurde als Kommunikationsmittel zwischen Coroutinen hinzugefügt. Viele stellen sich einen Kanal als Rohr vor, aber ich bevorzuge eine andere Metapher. Sind Sie mit öffentlichen Bücherschränken zum Austausch von Büchern vertraut? Jemand muss ein Buch hinterlassen, damit es eine andere Person finden kann. Dies ist sehr ähnlich, wie `Channel` von `kotlinx.coroutines` funktioniert.
@@ -746,7 +745,7 @@ Erstens könnte ein interner Fehler oder ein Serverneustart uns im Unklaren lass
 
 Die Lösung für dieses Problem könnte darin bestehen, eine Pipeline aufzubauen. Der erste Kanal könnte die zu verarbeitenden Verkäufer enthalten, während der zweite die zu aktualisierenden Angebote enthalten würde. Diese Kanäle hätten einen Puffer. Der Puffer im zweiten könnte unseren Service davon abhalten, weitere Angebote zu erhalten, wenn bereits zu viele in der Warteschlange sind. Auf diese Weise könnte unser Server die Anzahl der gleichzeitig aktualisierten Angebote ausbalancieren.
 
-Wir könnten auch problemlos einige Zwischenschritte hinzufügen, wie das Entfernen von Duplikaten. Indem wir die Anzahl der Koroutinen definieren, die auf jedem Kanal lauschen, entscheiden wir, wie viele gleichzeitige Anfragen wir an den externen Dienst stellen möchten. Die Manipulation dieser Parameter gibt uns eine Menge Freiheit. Es gibt auch viele Verbesserungen, die recht einfach hinzugefügt werden können, wie die Persistenz (für den Fall, dass der Server neu startet) oder die Einzigartigkeit der Elemente (für den Fall, dass der Verkäufer eine weitere Änderung vornimmt, bevor die vorherige verarbeitet wurde).
+Wir könnten auch problemlos einige Zwischenschritte hinzufügen, wie das Entfernen von Duplikaten. Indem wir die Anzahl der Coroutinen definieren, die auf jedem Kanal lauschen, entscheiden wir, wie viele gleichzeitige Anfragen wir an den externen Dienst stellen möchten. Die Manipulation dieser Parameter gibt uns eine Menge Freiheit. Es gibt auch viele Verbesserungen, die recht einfach hinzugefügt werden können, wie die Persistenz (für den Fall, dass der Server neu startet) oder die Einzigartigkeit der Elemente (für den Fall, dass der Verkäufer eine weitere Änderung vornimmt, bevor die vorherige verarbeitet wurde).
 
 {width: 100%}
 ![](channel_offer_update.png)

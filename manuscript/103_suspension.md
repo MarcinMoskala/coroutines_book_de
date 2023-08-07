@@ -1,15 +1,14 @@
-
 ## Wie funktioniert die Unterbrechung?
 
-Unterbrechbare Funktionen sind das Markenzeichen von Kotlin-Koroutinen. Die Fähigkeit, die Ausführung zu unterbrechen, ist das grundlegendste Merkmal, auf dem alle anderen Konzepte von Kotlin-Koroutinen aufbauen. Deshalb ist unser Ziel in diesem Kapitel, ein solides Verständnis dafür aufzubauen, wie es funktioniert.
+Unterbrechbare Funktionen sind das Markenzeichen von Kotlin-Coroutinen. Die Fähigkeit, die Ausführung zu unterbrechen, ist das grundlegendste Merkmal, auf dem alle anderen Konzepte von Kotlin-Coroutinen aufbauen. Deshalb ist unser Ziel in diesem Kapitel, ein solides Verständnis dafür aufzubauen, wie es funktioniert.
 
-Eine Koroutine zu unterbrechen bedeutet, sie mitten in der Ausführung anzuhalten. Es ähnelt dem Anhalten eines Videospiels: Sie speichern an einem Checkpoint, schalten das Spiel ab und sowohl Sie als auch Ihr Computer können sich auf andere Aufgaben konzentrieren. Wenn Sie später weitermachen möchten, schalten Sie das Spiel wieder ein, setzen es vom gespeicherten Checkpoint aus fort und können genau dort weiterspielen, wo Sie zuvor aufgehört hatten. Dies ist eine Analogie zu Koroutinen. Wenn sie unterbrochen sind, geben sie eine `Continuation` zurück. Es ist wie ein Speichern in einem Spiel: wir können es verwenden, um an dem Punkt fortzufahren, an dem wir gestoppt haben.
+Eine Koroutine zu unterbrechen bedeutet, sie mitten in der Ausführung anzuhalten. Es ähnelt dem Anhalten eines Videospiels: Sie speichern an einem Checkpoint, schalten das Spiel ab und sowohl Sie als auch Ihr Computer können sich auf andere Aufgaben konzentrieren. Wenn Sie später weitermachen möchten, schalten Sie das Spiel wieder ein, setzen es vom gespeicherten Checkpoint aus fort und können genau dort weiterspielen, wo Sie zuvor aufgehört hatten. Dies ist eine Analogie zu Coroutinen. Wenn sie unterbrochen sind, geben sie eine `Continuation` zurück. Es ist wie ein Speichern in einem Spiel: wir können es verwenden, um an dem Punkt fortzufahren, an dem wir gestoppt haben.
 
 Beachten Sie, dass dies sehr unterschiedlich von einem Thread ist, der nicht gespeichert, nur blockiert werden kann. Eine Koroutine ist viel leistungsfähiger. Wenn sie unterbrochen ist, verbraucht sie keine Ressourcen. Eine Koroutine kann auf einem anderen Thread fortgesetzt werden und (zumindest theoretisch) kann eine Continuation serialisiert, deserialisiert und dann fortgesetzt werden.
 
 ### Resume
 
-Lassen Sie uns das nun in Aktion sehen. Dafür brauchen wir eine Koroutine. Wir starten Koroutinen mit Koroutinen-Buildern (wie `runBlocking` oder `launch`), die wir später einführen werden. Es gibt allerdings auch einen einfacheren Weg: Wir können eine unterbrechbare `main` Funktion verwenden.
+Lassen Sie uns das nun in Aktion sehen. Dafür brauchen wir eine Koroutine. Wir starten Coroutinen mit Coroutinen-Buildern (wie `runBlocking` oder `launch`), die wir später einführen werden. Es gibt allerdings auch einen einfacheren Weg: Wir können eine unterbrechbare `main` Funktion verwenden.
 
 Unterbrechbare Funktionen sind Funktionen, die eine Koroutine unterbrechen können. Das bedeutet, dass sie von einer Koroutine (oder einer anderen unterbrechbaren Funktion) aufgerufen werden müssen. Letztendlich müssen sie etwas zum Unterbrechen haben. Die Funktion `main` ist der Startpunkt, daher wird Kotlin sie in einer Koroutine starten, wenn wir sie ausführen.
 
@@ -230,9 +229,9 @@ suspend fun main() {
 //sampleEnd
 ```
 
-Das Ausführungsprogramm verwendet weiterhin einen Prozessfaden, aber es handelt sich um einen Prozessfaden für alle Koroutinen, die die `delay` Funktion verwenden. Dies ist deutlich besser als jedes Mal einen Prozessfaden zu sperren, wenn wir einige Zeit warten müssen.
+Das Ausführungsprogramm verwendet weiterhin einen Prozessfaden, aber es handelt sich um einen Prozessfaden für alle Coroutinen, die die `delay` Funktion verwenden. Dies ist deutlich besser als jedes Mal einen Prozessfaden zu sperren, wenn wir einige Zeit warten müssen.
 
-Genau so wurde die `delay` Funktion aus der Kotlin Koroutinen-Bibliothek früher implementiert. Die aktuelle Implementierung ist komplizierter, hauptsächlich um Tests zu unterstützen, aber die grundlegende Idee bleibt die gleiche.
+Genau so wurde die `delay` Funktion aus der Kotlin Coroutinen-Bibliothek früher implementiert. Die aktuelle Implementierung ist komplizierter, hauptsächlich um Tests zu unterstützen, aber die grundlegende Idee bleibt die gleiche.
 
 ### Mit einem Wert fortfahren
 
@@ -271,7 +270,7 @@ suspend fun main() {
 //sampleEnd
 ```
 
-Dies passt nicht gut zum Vergleich mit einem Spiel. Mir ist kein Spiel bekannt, in dem man beim Fortsetzen eines gespeicherten Spiels etwas hinzufügen kann[^103_3] (es sei denn, man hat geschummelt und gegoogelt, wie man die nächste Herausforderung löst). Bei Koroutinen ergibt das jedoch vollkommen Sinn. Oft werden wir angehalten, weil wir auf Daten warten, wie eine Netzwerk-Antwort einer API. Dies ist ein häufiges Szenario. Dein Thread führt Business-Logik aus, bis er an einen Punkt kommt, wo er Daten benötigt. Also fordert er deine Netzwerkbibliothek auf, diese zu liefern. Ohne Koroutinen würde dieser Thread dann warten müssen. Das wäre eine enorme Verschwendung, denn Threads kosten viel Ressourcen, besonders wenn es sich um einen wichtigen Thread handelt, wie den Haupt-Thread auf Android. Mit Koroutinen wird er einfach angehalten und gibt der Bibliothek eine Fortführung mit der Anweisung "Sobald du diese Daten hast, sende sie einfach an die `resume` Funktion". Dann kann der Thread andere Aufgaben übernehmen. Sobald die Daten vorliegen, wird der Thread dazu verwendet, ab dem Punkt fortzusetzen, an dem die Koroutine angehalten wurde.
+Dies passt nicht gut zum Vergleich mit einem Spiel. Mir ist kein Spiel bekannt, in dem man beim Fortsetzen eines gespeicherten Spiels etwas hinzufügen kann[^103_3] (es sei denn, man hat geschummelt und gegoogelt, wie man die nächste Herausforderung löst). Bei Coroutinen ergibt das jedoch vollkommen Sinn. Oft werden wir angehalten, weil wir auf Daten warten, wie eine Netzwerk-Antwort einer API. Dies ist ein häufiges Szenario. Dein Thread führt Business-Logik aus, bis er an einen Punkt kommt, wo er Daten benötigt. Also fordert er deine Netzwerkbibliothek auf, diese zu liefern. Ohne Coroutinen würde dieser Thread dann warten müssen. Das wäre eine enorme Verschwendung, denn Threads kosten viel Ressourcen, besonders wenn es sich um einen wichtigen Thread handelt, wie den Haupt-Thread auf Android. Mit Coroutinen wird er einfach angehalten und gibt der Bibliothek eine Fortführung mit der Anweisung "Sobald du diese Daten hast, sende sie einfach an die `resume` Funktion". Dann kann der Thread andere Aufgaben übernehmen. Sobald die Daten vorliegen, wird der Thread dazu verwendet, ab dem Punkt fortzusetzen, an dem die Koroutine angehalten wurde.
 
 Um dies in der Praxis zu sehen, schauen wir uns an, wie wir möglicherweise warten, bis wir einige Daten erhalten. Im folgenden Beispiel verwenden wir eine `requestUser` Callback-Funktion, die extern implementiert ist.
 
@@ -415,7 +414,7 @@ suspend fun requestNews(): News {
 
 ### Eine Koroutine unterbrechen, nicht eine Funktion
 
-Etwas, das hier hervorgehoben werden muss, ist, dass wir eine Koroutine aussetzen, nicht eine Funktion. Suspendierbare Funktionen sind keine Koroutinen, sondern nur Funktionen, die eine Koroutine aussetzen können[^103_4]. Stellen Sie sich vor, wir speichern eine Funktion in einer Variablen und versuchen, sie nach dem Funktionsaufruf fortzusetzen.
+Etwas, das hier hervorgehoben werden muss, ist, dass wir eine Koroutine aussetzen, nicht eine Funktion. Suspendierbare Funktionen sind keine Coroutinen, sondern nur Funktionen, die eine Koroutine aussetzen können[^103_4]. Stellen Sie sich vor, wir speichern eine Funktion in einer Variablen und versuchen, sie nach dem Funktionsaufruf fortzusetzen.
 
 {crop-start: 3, crop-end: 20}
 ```kotlin

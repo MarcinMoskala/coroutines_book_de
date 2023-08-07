@@ -1,4 +1,3 @@
-
 ### Data/Adapters Layer
 
 Ich beginne mit der Vorstellung typischer Use Cases für Kotlin Coroutines aus dem Data/Adapters Layer, in dem wir Repository, Anbieter, Adapter, Datenquellen usw. umsetzen. Dieser Layer ist heutzutage relativ einfach, da viele populäre JVM-Libraries Kotlin Coroutines entweder out of the box unterstützen oder mit einigen zusätzlichen Abhängigkeiten.

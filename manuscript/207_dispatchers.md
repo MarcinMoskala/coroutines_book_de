@@ -1,5 +1,3 @@
-
-
 ## Verteiler
 
 Eine wesentliche Funktion, die die Kotlin Coroutines-Bibliothek anbietet, ist die Entscheidung, auf welchem Thread (oder Thread-Pool) eine Coroutine laufen soll (starten und fortsetzen). Diese Entscheidung wird mithilfe von Verteilern getroffen.
@@ -286,7 +284,7 @@ Das größte Problem mit diesem Ansatz ist, dass ein mit `ExecutorService.asCoro
 
 ### Dispatcher auf einen einzelnen Thread begrenzt
 
-Für alle Dispatcher, die mehrere Threads verwenden, müssen wir das Problem des gemeinsam geteilten Zustands berücksichtigen. Beachten Sie, dass im Beispiel unten 10.000 Koroutinen `i` um 1 erhöht. Daher sollte sein Wert 10.000 sein, aber er ist eine kleinere Zahl. Dies ist das Ergebnis einer gleichzeitigen Modifikation des gemeinsam geteilten Zustands (Eigenschaft `i`) auf mehreren Threads.
+Für alle Dispatcher, die mehrere Threads verwenden, müssen wir das Problem des gemeinsam geteilten Zustands berücksichtigen. Beachten Sie, dass im Beispiel unten 10.000 Coroutinen `i` um 1 erhöht. Daher sollte sein Wert 10.000 sein, aber er ist eine kleinere Zahl. Dies ist das Ergebnis einer gleichzeitigen Modifikation des gemeinsam geteilten Zustands (Eigenschaft `i`) auf mehreren Threads.
 
 {crop-start: 6, crop-end: 16}
 ```kotlin
@@ -417,7 +415,7 @@ val Dispatchers.Loom: CoroutineDispatcher
 ```
 
 
-Jetzt brauchen wir nur zu testen, ob unser neuer Dispatcher wirklich eine Verbesserung ist. Wir erwarten, dass er bei blockierenden Threads weniger Speicher und Prozessorleistung benötigt als andere Dispatcher. Wir könnten die Umgebung für präzise Messungen einrichten, oder wir könnten ein Beispiel so extrem gestalten, dass jeder den Unterschied sehen kann. Für dieses Buch habe ich mich für den zweiten Ansatz entschieden. Ich habe 100.000 Koroutinen gestartet, die jeweils für 1 Sekunde blockiert waren. Du kannst sie etwas anderes tun lassen, wie etwa etwas ausdrucken oder einen Wert erhöhen, es sollte das Ergebnis nicht stark verändern. Es hat etwas mehr als zwei Sekunden gedauert, alle diese Koroutinen auf `Dispatchers.Loom` auszuführen.
+Jetzt brauchen wir nur zu testen, ob unser neuer Dispatcher wirklich eine Verbesserung ist. Wir erwarten, dass er bei blockierenden Threads weniger Speicher und Prozessorleistung benötigt als andere Dispatcher. Wir könnten die Umgebung für präzise Messungen einrichten, oder wir könnten ein Beispiel so extrem gestalten, dass jeder den Unterschied sehen kann. Für dieses Buch habe ich mich für den zweiten Ansatz entschieden. Ich habe 100.000 Coroutinen gestartet, die jeweils für 1 Sekunde blockiert waren. Du kannst sie etwas anderes tun lassen, wie etwa etwas ausdrucken oder einen Wert erhöhen, es sollte das Ergebnis nicht stark verändern. Es hat etwas mehr als zwei Sekunden gedauert, alle diese Coroutinen auf `Dispatchers.Loom` auszuführen.
 
 
 ```kotlin
@@ -583,7 +581,7 @@ class UserReaderTests {
 
 ### Leistung von Dispatchern gegen unterschiedliche Aufgaben
 
-Um zu zeigen, wie verschiedene Dispatcher gegen unterschiedliche Aufgaben abschneiden, habe ich einige Benchmarks erstellt. In all diesen Fällen ist die Aufgabe, 100 unabhängige Koroutinen mit derselben Aufgabe auszuführen. Verschiedene Spalten stellen verschiedene Aufgaben dar: Unterbrechung für eine Sekunde, Sperren für eine Sekunde, CPU-intensive Operation und speicherintensive Operation (wo die meiste Zeit mit Zugriff, Zuweisung und Freigabe von Speicher verbracht wird). Verschiedene Zeilen stellen die verschiedenen Dispatcher dar, die zum Ausführen dieser Koroutinen verwendet wurden. Die folgende Tabelle zeigt die durchschnittliche Ausführungszeit in Millisekunden.
+Um zu zeigen, wie verschiedene Dispatcher gegen unterschiedliche Aufgaben abschneiden, habe ich einige Benchmarks erstellt. In all diesen Fällen ist die Aufgabe, 100 unabhängige Coroutinen mit derselben Aufgabe auszuführen. Verschiedene Spalten stellen verschiedene Aufgaben dar: Unterbrechung für eine Sekunde, Sperren für eine Sekunde, CPU-intensive Operation und speicherintensive Operation (wo die meiste Zeit mit Zugriff, Zuweisung und Freigabe von Speicher verbracht wird). Verschiedene Zeilen stellen die verschiedenen Dispatcher dar, die zum Ausführen dieser Coroutinen verwendet wurden. Die folgende Tabelle zeigt die durchschnittliche Ausführungszeit in Millisekunden.
 
 |                     | Unterbrechung  | Sperren | CPU    | Speicher |
 |---------------------|----------------|---------|--------|----------|
@@ -595,7 +593,7 @@ Um zu zeigen, wie verschiedene Dispatcher gegen unterschiedliche Aufgaben abschn
 Es gibt ein paar wichtige Beobachtungen, die Sie machen können:
 
 1. Wenn wir nur unterbrechen, spielt es wirklich keine Rolle, wie viele Threads wir verwenden.
-2. Wenn wir sperren, werden alle diese Koroutinen umso schneller fertig, je mehr Threads wir verwenden.
+2. Wenn wir sperren, werden alle diese Coroutinen umso schneller fertig, je mehr Threads wir verwenden.
 3. Bei CPU-intensiven Operationen ist `Dispatchers.Default` die beste Option[^207_2].
 4. Wenn wir ein speicherintensives Problem haben, könnten mehr Threads eine (aber keine signifikante) Verbesserung bieten.
 

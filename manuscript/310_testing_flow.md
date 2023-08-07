@@ -1,5 +1,4 @@
-
-## Flusstest
+## Testing von Flows
 
 %% > Dieses Kapitel setzt [Testing Kotlin Coroutines](https://kt.academy/article/cc-testing) fort, in dem `runTest`, `backgroundScope`, `TestScope` usw. vorgestellt werden.
 

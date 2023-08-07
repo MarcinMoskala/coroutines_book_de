@@ -1,4 +1,3 @@
-
 ## Coroutine-Builder
 
 Suspendierende Funktionen müssen Kontinuationen aneinander weiterreichen. Sie haben keine Schwierigkeiten, normale Funktionen aufzurufen, aber normale Funktionen können keine suspendierenden Funktionen aufrufen.
@@ -84,7 +83,7 @@ fun main() {
 
 ### `runBlocking` Ersteller
 
-Die allgemeine Regel ist, dass Koroutinen niemals Threads blockieren, sondern sie nur suspendieren sollten. Andererseits gibt es Fälle, in denen das Blockieren notwendig ist. So wie in der Hauptfunktion, müssen wir den Thread blockieren, sonst endet unser Programm zu früh. Für solche Fälle könnten wir `runBlocking` verwenden.
+Die allgemeine Regel ist, dass Coroutinen niemals Threads blockieren, sondern sie nur suspendieren sollten. Andererseits gibt es Fälle, in denen das Blockieren notwendig ist. So wie in der Hauptfunktion, müssen wir den Thread blockieren, sonst endet unser Programm zu früh. Für solche Fälle könnten wir `runBlocking` verwenden.
 
 `runBlocking` ist ein sehr ungewöhnlicher Ersteller. Es blockiert den Thread, auf dem es gestartet wurde, wann immer seine Koroutine suspendiert wird[^201_3] (ähnlich dem Suspendieren von main). Das bedeutet, dass `delay(1000L)` innerhalb von `runBlocking` wird sich wie `Thread.sleep(1000L)` verhalten[^201_7].
 

@@ -1,4 +1,3 @@
-
 ## Rezepte
 
 In diesem Kapitel werden wir eine Sammlung von praktischen Kotlin Coroutine-Rezepten untersuchen, die Ihren Entwicklungsprozess optimieren können. Diese Rezepte wurden in mehreren Projekten getestet und verfeinert, daher können Sie darauf vertrauen, dass sie eine wertvolle Ergänzung zu Ihrem Werkzeugkasten sind.

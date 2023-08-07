@@ -1,4 +1,3 @@
-
 ## Häufige Anwendungsfälle
 
 Schauen wir uns die am häufigsten auftretenden Muster in Anwendungen an, die gut mit Kotlin Coroutines implementiert sind. Die meisten dieser Muster werden sowohl im Backend als auch auf Android verwendet.

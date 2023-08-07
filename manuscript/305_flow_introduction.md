@@ -1,5 +1,3 @@
-
-
 ## Einführung in Flow
 
 Ein Flow repräsentiert einen Datenstrom von Werten, die asynchron verarbeitet werden. Die `Flow`-Schnittstelle ermöglicht nur das Sammeln der durchfließenden Elemente, was bedeutet, dass jedes Element behandelt wird, wenn es das Ende des Flow erreicht (`collect` für `Flow` ist wie `forEach` für Kollektionen).
@@ -174,7 +172,7 @@ suspend fun main() {
 ```
 
 
-Dies ist ein Fall, in dem wir `Flow` anstelle von `Sequence` verwenden sollten. Ein solcher Ansatz unterstützt Koroutinen in vollem Umfang in seinen Operationen. Sein Builder und Operationen sind Funktionen, die pausieren können, und er unterstützt strukturierte Nebenläufigkeit sowie korrekte Fehlerbehandlung. Wir werden all dies in den nächsten Kapiteln erklären, aber zunächst schauen wir mal, wie es in diesem Fall hilft.
+Dies ist ein Fall, in dem wir `Flow` anstelle von `Sequence` verwenden sollten. Ein solcher Ansatz unterstützt Coroutinen in vollem Umfang in seinen Operationen. Sein Builder und Operationen sind Funktionen, die pausieren können, und er unterstützt strukturierte Nebenläufigkeit sowie korrekte Fehlerbehandlung. Wir werden all dies in den nächsten Kapiteln erklären, aber zunächst schauen wir mal, wie es in diesem Fall hilft.
 
 {crop-start: 3}
 ```kotlin
@@ -359,6 +357,6 @@ Wie Sie sehen können, gibt es ziemlich viele Anwendungsfälle für Flows. In ei
 
 ### Zusammenfassung
 
-In diesem Kapitel haben wir das Flow-Konzept eingeführt. Es repräsentiert einen Strom von asynchron berechnete Werte, die Koroutinen unterstützt (anders als Sequenzen). Es gibt ziemlich viele Anwendungsfälle, in denen Flow von Nutzen ist. Wir werden sie in den nächsten Kapiteln erkunden, während wir mehr über die Flow-Fähigkeiten lernen.
+In diesem Kapitel haben wir das Flow-Konzept eingeführt. Es repräsentiert einen Strom von asynchron berechnete Werte, die Coroutinen unterstützt (anders als Sequenzen). Es gibt ziemlich viele Anwendungsfälle, in denen Flow von Nutzen ist. Wir werden sie in den nächsten Kapiteln erkunden, während wir mehr über die Flow-Fähigkeiten lernen.
 
 

@@ -1,4 +1,3 @@
-
 ## Testen von Kotlin Coroutines
 
 Das Testen von suspendierenden Funktionen unterscheidet sich in den meisten Fällen nicht vom Testen normaler Funktionen. Werfen Sie einen Blick auf die untenstehende `fetchUserData` aus `FetchUserUseCase`. Dank einiger Fake-Objekte[^210_1] (oder Mocks[^210_2]) und einfachen Assert-Anweisungen kann überprüft werden, ob sie die Daten wie erwartet anzeigt.
@@ -177,7 +176,7 @@ fun main() {
 
 > `TestCoroutineScheduler` sowie `StandardTestDispatcher`, `TestScope` und `runTest` sind immer noch experimentell.
 
-Um `TestCoroutineScheduler` bei Koroutinen zu verwenden, sollten wir einen Dispatcher verwenden, der ihn unterstützt. Die Standardoption ist `StandardTestDispatcher`. Im Gegensatz zu den meisten Dispatchern wird er nicht nur dazu benutzt, zu bestimmen auf welchem Thread eine Koroutine laufen soll. Koroutinen, die mit einem solchen Dispatcher gestartet werden, werden nicht ausgeführt, bis wir die virtuelle Zeit weiterleiten. Die typischste Art, dies zu tun, ist die Verwendung von `advanceUntilIdle`, welches die virtuelle Zeit weiterleitet und alle Operationen ausführt, die zu diesem Zeitpunkt aufgerufen werden würden, wenn es sich um die reale Zeit handeln würde.
+Um `TestCoroutineScheduler` bei Coroutinen zu verwenden, sollten wir einen Dispatcher verwenden, der ihn unterstützt. Die Standardoption ist `StandardTestDispatcher`. Im Gegensatz zu den meisten Dispatchern wird er nicht nur dazu benutzt, zu bestimmen auf welchem Thread eine Koroutine laufen soll. Coroutinen, die mit einem solchen Dispatcher gestartet werden, werden nicht ausgeführt, bis wir die virtuelle Zeit weiterleiten. Die typischste Art, dies zu tun, ist die Verwendung von `advanceUntilIdle`, welches die virtuelle Zeit weiterleitet und alle Operationen ausführt, die zu diesem Zeitpunkt aufgerufen werden würden, wenn es sich um die reale Zeit handeln würde.
 
 ```kotlin
 fun main() {
@@ -650,7 +649,7 @@ suspend fun <T, R> Iterable<T>.mapAsync(
 
 ### `UnconfinedTestDispatcher`
 
-Neben dem `StandardTestDispatcher` haben wir auch `UnconfinedTestDispatcher`. Der größte Unterschied besteht darin, dass der `StandardTestDispatcher` keine Operationen auslöst, bis wir seinen Planer verwenden. Der `UnconfinedTestDispatcher` führt unmittelbar alle Operationen vor der ersten Verzögerung auf laufenden Koroutinen aus, weshalb der untenstehende Code "C" anzeigt.
+Neben dem `StandardTestDispatcher` haben wir auch `UnconfinedTestDispatcher`. Der größte Unterschied besteht darin, dass der `StandardTestDispatcher` keine Operationen auslöst, bis wir seinen Planer verwenden. Der `UnconfinedTestDispatcher` führt unmittelbar alle Operationen vor der ersten Verzögerung auf laufenden Coroutinen aus, weshalb der untenstehende Code "C" anzeigt.
 
 ```kotlin
 fun main() {
@@ -984,11 +983,11 @@ fun testSendNotifications() {
 
 In Unit-Tests gibt es keine Hauptfunktion. Das bedeutet, wenn wir es zu benutzen versuchen, scheitern unsere Tests mit der Ausnahme "Modul mit dem Haupt-Dispatcher fehlt". Andererseits wäre es anspruchsvoll, den Haupt-Thread jedes Mal zu injizieren, daher bietet die "kotlinx-coroutines-test" Bibliothek stattdessen die `setMain` Erweiterungsfunktion auf `Dispatchers` an.
 
-Wir definieren oft main in einer Setup-Funktion (Funktion mit `@Before` oder `@BeforeEach`) in einer Basisklasse, die von allen Unit-Tests erweitert wird. Als Ergebnis sind wir immer sicher, dass wir unsere Koroutinen auf `Dispatchers.Main` ausführen können. Wir sollten auch den Haupt-Dispatcher mit `Dispatchers.resetMain()` auf den ursprünglichen Zustand zurücksetzen.
+Wir definieren oft main in einer Setup-Funktion (Funktion mit `@Before` oder `@BeforeEach`) in einer Basisklasse, die von allen Unit-Tests erweitert wird. Als Ergebnis sind wir immer sicher, dass wir unsere Coroutinen auf `Dispatchers.Main` ausführen können. Wir sollten auch den Haupt-Dispatcher mit `Dispatchers.resetMain()` auf den ursprünglichen Zustand zurücksetzen.
 
-### Testen von Android-Funktionen, die Koroutinen starten
+### Testen von Android-Funktionen, die Coroutinen starten
 
-Auf Android starten wir typischerweise Koroutinen in ViewModels, Presentern, Fragmenten oder Aktivitäten. Dies sind sehr wichtige Klassen, und wir sollten sie testen. Denken Sie an die unten gezeigte `MainViewModel` Implementierung:
+Auf Android starten wir typischerweise Coroutinen in ViewModels, Presentern, Fragmenten oder Aktivitäten. Dies sind sehr wichtige Klassen, und wir sollten sie testen. Denken Sie an die unten gezeigte `MainViewModel` Implementierung:
 
 ```kotlin
 class MainViewModel(
@@ -1224,7 +1223,7 @@ class MainViewModelTests {
 
 > Wenn Sie `advanceUntilIdle`, `advanceTimeBy`, `runCurrent` und `currentTime` direkt auf `MainCoroutineRule` aufrufen möchten, können Sie diese als Erweiterungsfunktionen und -eigenschaften definieren.
 
-Diese Art des Testens von Kotlin-Koroutinen ist auf Android weit verbreitet. Es wird sogar in den Codelabs-Materialien von Google erklärt ([Advanced Android in Kotlin 05.3: Testing Coroutines and Jetpack integrations](https://developer.android.com/codelabs/advanced-android-kotlin-training-testing-survey#3)) (derzeit, für ältere `kotlinx-coroutines-test` API).
+Diese Art des Testens von Kotlin-Coroutinen ist auf Android weit verbreitet. Es wird sogar in den Codelabs-Materialien von Google erklärt ([Advanced Android in Kotlin 05.3: Testing Coroutines and Jetpack integrations](https://developer.android.com/codelabs/advanced-android-kotlin-training-testing-survey#3)) (derzeit, für ältere `kotlinx-coroutines-test` API).
 
 Es ist ähnlich wie bei JUnit 5, wo wir eine Erweiterung definieren können:
 

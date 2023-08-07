@@ -1,8 +1,6 @@
+## Verwendung von Coroutinen in anderen Programmiersprachen
 
-
-## Verwendung von Koroutinen in anderen Sprachen
-
-Verschiedene Sprachen haben unterschiedliche Ansätze zur Nebenläufigkeit. In Java ist es üblich, Threads zu starten und zu blocken, aber in JavaScript geschieht dies praktisch nie, da asynchrone Prozesse durch Promises und asynchrone Funktionen repräsentiert werden. Das bedeutet, wir müssen lernen, wie eine API in Kotlin für Entwickler von verschiedenen Plattformen definiert wird, aber wir müssen auch einige der Einschränkungen bestimmter Plattformen verstehen. In diesem Kapitel erfahren wir, welche Kotlin-Funktionen plattformspezifisch sind und wie wir Kotlin-Koroutinen für Plattformspezifität anpassen können, wenn wir eine API für andere beliebte Sprachen bereitstellen möchten.
+Verschiedene Sprachen haben unterschiedliche Ansätze zur Nebenläufigkeit. In Java ist es üblich, Threads zu starten und zu blocken, aber in JavaScript geschieht dies praktisch nie, da asynchrone Prozesse durch Promises und asynchrone Funktionen repräsentiert werden. Das bedeutet, wir müssen lernen, wie eine API in Kotlin für Entwickler von verschiedenen Plattformen definiert wird, aber wir müssen auch einige der Einschränkungen bestimmter Plattformen verstehen. In diesem Kapitel erfahren wir, welche Kotlin-Funktionen plattformspezifisch sind und wie wir Kotlin-Coroutinen für Plattformspezifität anpassen können, wenn wir eine API für andere beliebte Sprachen bereitstellen möchten.
 
 ### Threads auf verschiedenen Plattformen
 
@@ -12,7 +10,7 @@ Aus dem gleichen Grund können wir `Dispatchers.IO` in Kotlin/JS nicht verwenden
 
 ### Umwandlung von suspendierenden in nicht-suspendierenden Funktionen
 
-Wir wissen bereits, was zu tun ist, wenn wir blockierende oder Callback-Funktionen in suspendierenden Funktionen umwandeln müssen. Aber was ist, wenn wir das Gegenteil tun und unsere suspendierenden Funktionen in anderen Sprachen als Kotlin verwenden müssen? Wie wir im Kapitel *Koroutinen unter der Haube* gesehen haben, benötigen suspendierende Funktionen `Continuation`, die von Kotlin bereitgestellt werden muss. Wir müssen eine Lösung finden, um dies für andere Sprachen zu überwinden, und da Kotlin eine Multiplattform-Sprache ist, könnten diese anderen Sprachen alle JVM-Sprachen (Java, Scala, Groovy, Clojure, ...), JavaScript-Sprachen (JavaScript, TypeScript) oder native Sprachen (Swift, C++, C, ...) umfassen. Lassen Sie uns die wichtigsten Optionen betrachten, die uns zur Verfügung stehen.
+Wir wissen bereits, was zu tun ist, wenn wir blockierende oder Callback-Funktionen in suspendierenden Funktionen umwandeln müssen. Aber was ist, wenn wir das Gegenteil tun und unsere suspendierenden Funktionen in anderen Sprachen als Kotlin verwenden müssen? Wie wir im Kapitel *Coroutinen unter der Haube* gesehen haben, benötigen suspendierende Funktionen `Continuation`, die von Kotlin bereitgestellt werden muss. Wir müssen eine Lösung finden, um dies für andere Sprachen zu überwinden, und da Kotlin eine Multiplattform-Sprache ist, könnten diese anderen Sprachen alle JVM-Sprachen (Java, Scala, Groovy, Clojure, ...), JavaScript-Sprachen (JavaScript, TypeScript) oder native Sprachen (Swift, C++, C, ...) umfassen. Lassen Sie uns die wichtigsten Optionen betrachten, die uns zur Verfügung stehen.
 
 Angenommen, Sie implementieren eine Multiplattform-Bibliothek mit suspendierenden Funktionen, und Sie bieten die folgende Fassade[^403_2] als Ihre API an:
 

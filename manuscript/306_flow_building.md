@@ -1,4 +1,3 @@
-
 ## Aufbau eines Flow
 
 Jeder Flow muss irgendwo beginnen. Es gibt viele Wege, dies zu tun, je nachdem, was wir benötigen. In diesem Kapitel konzentrieren wir uns auf die wichtigsten Optionen.
@@ -401,7 +400,7 @@ fun <T> contextualFlow(): Flow<T> = channelFlow {
 ```
 
 
-Genauso wie alle anderen Koroutinen, wird `channelFlow` nicht beendet, bis alle seine untergeordneten Prozesse in einem Endzustand sind.
+Genauso wie alle anderen Coroutinen, wird `channelFlow` nicht beendet, bis alle seine untergeordneten Prozesse in einem Endzustand sind.
 
 ### callbackFlow
 

@@ -1,4 +1,3 @@
-
 ## Sequenz-Builder
 
 In einigen anderen Sprachen, wie Python oder JavaScript, finden Sie Strukturen, die begrenzte Formen von Coroutinen verwenden:
@@ -109,7 +108,7 @@ fun main() {
 //sampleEnd
 ```
 
-Hier haben wir einen Iterator verwendet, um die nächsten Werte zu bekommen. Zu jedem Zeitpunkt können wir ihn erneut aufrufen, um mitten in der Builder-Funktion fortzufahren und den nächsten Wert zu generieren. Wäre dies ohne Koroutinen (coroutines) möglich? Vielleicht, wenn wir einen eigenen Thread dafür einrichten würden. Ein solcher Thread müsste jedoch gepflegt werden, was enorme Kosten verursachen würde. Mit Koroutinen ist es schnell und einfach. Außerdem können wir diesen Iterator so lange behalten, wie wir möchten, da er kaum etwas kostet. Bald werden wir lernen, wie dieser Mechanismus unter der Haube funktioniert (im Kapitel *Suspension unter der Haube*).
+Hier haben wir einen Iterator verwendet, um die nächsten Werte zu bekommen. Zu jedem Zeitpunkt können wir ihn erneut aufrufen, um mitten in der Builder-Funktion fortzufahren und den nächsten Wert zu generieren. Wäre dies ohne Coroutinen (coroutines) möglich? Vielleicht, wenn wir einen eigenen Thread dafür einrichten würden. Ein solcher Thread müsste jedoch gepflegt werden, was enorme Kosten verursachen würde. Mit Coroutinen ist es schnell und einfach. Außerdem können wir diesen Iterator so lange behalten, wie wir möchten, da er kaum etwas kostet. Bald werden wir lernen, wie dieser Mechanismus unter der Haube funktioniert (im Kapitel *Suspension unter der Haube*).
 
 ### Praktische Anwendungen
 

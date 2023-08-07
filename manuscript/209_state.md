@@ -1,4 +1,3 @@
-
 ## Das Problem mit dem geteilten Zustand
 
 Bevor wir beginnen, schauen Sie sich die `UserDownloader` Klasse unten an. Sie ermöglicht es uns, einen Benutzer nach ID abzurufen oder alle zuvor heruntergeladenen Benutzer abzurufen. Was ist das Problem mit dieser Implementierung?
@@ -459,7 +458,7 @@ suspend fun delayAndPrint() {
 ```
 
 
-Direktes Verwenden von `lock` und `unlock` ist riskant, da jeder Ausnahmefehler (oder vorzeitige Rückgabe) dazwischen dazu führen würde, dass das Lock nie zurückgegeben wird (`unlock` wird nie aufgerufen), und als Ergebnis wären keine anderen Koroutinen in der Lage, das Lock zu passieren. Dies ist ein schwerwiegendes Problem, das als Deadlock bekannt ist (stellen Sie sich eine Toilette vor, die nicht benutzt werden kann, weil jemand in Eile war und vergessen hat, das Lock zurückzugeben). Daher können wir stattdessen die Funktion `withLock` verwenden, die mit `lock` beginnt, aber `unlock` im `finally`-Block aufruft. Damit wird das Lock erfolgreich freigegeben, falls innerhalb des Blocks eine Ausnahme geworfen wird. Bei der Verwendung ähnelt es einem synchronisierten Block.
+Direktes Verwenden von `lock` und `unlock` ist riskant, da jeder Ausnahmefehler (oder vorzeitige Rückgabe) dazwischen dazu führen würde, dass das Lock nie zurückgegeben wird (`unlock` wird nie aufgerufen), und als Ergebnis wären keine anderen Coroutinen in der Lage, das Lock zu passieren. Dies ist ein schwerwiegendes Problem, das als Deadlock bekannt ist (stellen Sie sich eine Toilette vor, die nicht benutzt werden kann, weil jemand in Eile war und vergessen hat, das Lock zurückzugeben). Daher können wir stattdessen die Funktion `withLock` verwenden, die mit `lock` beginnt, aber `unlock` im `finally`-Block aufruft. Damit wird das Lock erfolgreich freigegeben, falls innerhalb des Blocks eine Ausnahme geworfen wird. Bei der Verwendung ähnelt es einem synchronisierten Block.
 
 {crop-start: 5, crop-end: 16}
 ```kotlin
@@ -551,7 +550,7 @@ suspend fun main() {
 }
 ```
 
-Wenn wir einen Dispatcher nutzen, der auf einen einzigen Thread beschränkt ist, haben wir dieses Problem nicht. Wenn eine `delay` Funktion oder eine Netzwerkanfrage eine Koroutine pausiert, kann der Thread von anderen Koroutinen genutzt werden.
+Wenn wir einen Dispatcher nutzen, der auf einen einzigen Thread beschränkt ist, haben wir dieses Problem nicht. Wenn eine `delay` Funktion oder eine Netzwerkanfrage eine Koroutine pausiert, kann der Thread von anderen Coroutinen genutzt werden.
 
 {crop-start: 3}
 ```kotlin
@@ -678,7 +677,7 @@ class LimitedNetworkUserRepository(
 
 ### Zusammenfassung
 
-Es gibt viele Wege, wie man Koroutinen koordinieren kann, um Konflikte zu vermeiden, wenn ein gemeinsamer Zustand verändert wird. Die praktischste Lösung ist, den gemeinsamen Zustand in einem Dispatcher zu verändern, der auf einen einzigen Thread beschränkt ist. Dies kann eine *feinkörnige Thread-Beschränkung* sein, die nur spezifische Stellen umfasst, an denen eine Synchronisation nötig ist; alternativ kann es eine *grobkörnige Thread-Beschränkung* sein, die den gesamten Vorgang einbezieht. Der zweite Ansatz ist einfacher, könnte aber langsamer sein. Wir könnten auch atomare Werte oder einen Mutex nutzen.
+Es gibt viele Wege, wie man Coroutinen koordinieren kann, um Konflikte zu vermeiden, wenn ein gemeinsamer Zustand verändert wird. Die praktischste Lösung ist, den gemeinsamen Zustand in einem Dispatcher zu verändern, der auf einen einzigen Thread beschränkt ist. Dies kann eine *feinkörnige Thread-Beschränkung* sein, die nur spezifische Stellen umfasst, an denen eine Synchronisation nötig ist; alternativ kann es eine *grobkörnige Thread-Beschränkung* sein, die den gesamten Vorgang einbezieht. Der zweite Ansatz ist einfacher, könnte aber langsamer sein. Wir könnten auch atomare Werte oder einen Mutex nutzen.
 
 [^209_1]: Um keinen falschen Eindruck von meinem Heimatland zu vermitteln, muss ich sagen, dass wir den Schlüssel für eine Toilette hauptsächlich außerhalb von Polen benötigen. Zum Beispiel verfügt in Polen praktisch jede Tankstelle über eine Toilette, die für alle offen ist, kein Schlüssel erforderlich (und sie sind allgemein sauber und ordentlich). In vielen anderen europäischen Ländern hingegen sind die Toiletten besser vor Personen geschützt, die sie eventuell ohne Kauf nutzen möchten.
 

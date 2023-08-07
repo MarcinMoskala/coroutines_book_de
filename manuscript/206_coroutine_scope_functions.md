@@ -1,4 +1,3 @@
-
 ## Coroutine Scope funktionen
 
 Stellen Sie sich vor, Sie brauchen in einer suspending function nebenläufig Daten von zwei (oder mehr) Endpunkten zu bekommen. Bevor wir untersuchen, wie dies korrekt gemacht wird, werfen wir einen Blick auf einige **suboptimale** Vorgehensweisen.

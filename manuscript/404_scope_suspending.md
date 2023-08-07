@@ -1,4 +1,3 @@
-
 ## Coroutinen starten im Vergleich zu Suspending Functions
 
 Betrachten wir einen Anwendungsfall, in dem man eine Reihe von gleichzeitigen Aktionen ausführen muss. Es gibt zwei Arten von Funktionen, die dafür verwendet werden können:

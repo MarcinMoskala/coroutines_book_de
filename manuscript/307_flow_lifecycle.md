@@ -1,4 +1,3 @@
-
 ## Funktionen des Flow-Lebenszyklus
 
 Ein Flow kann man sich als eine Röhre vorstellen, durch die Anfragen nach nächsten Werten in eine Richtung fließen und die entsprechend erzeugten Werte in die andere Richtung fließen. Wenn der Flow abgeschlossen ist oder eine Ausnahme auftritt, wird auch diese Information weitergegeben und sie schließt die Zwischenschritte auf dem Weg. Da sie also alle fließen, können wir auf Werte, Ausnahmen oder andere charakteristische Ereignisse (wie Starten oder Abschließen) aufmerksam sein. Um dies zu tun, verwenden wir Methoden wie `onEach`, `onStart`, `onCompletion`, `onEmpty` und `catch`. Lass uns diese mal einzeln durchgehen.
@@ -82,7 +81,7 @@ suspend fun main() {
 
 ### onCompletion
 
-Es gibt einige Möglichkeiten, wie ein Flow abgeschlossen werden kann. Die häufigste ist, wenn der Flow-Builder abgeschlossen ist (d.h., das letzte Element wurde gesendet), obwohl dies auch im Falle einer nicht abgefangenen Exception oder eines Koroutinenabbruchs passiert. In all diesen Fällen können wir einen Listener für den Flow-Abschluss hinzufügen, indem wir die `onCompletion` Methode einsetzen.
+Es gibt einige Möglichkeiten, wie ein Flow abgeschlossen werden kann. Die häufigste ist, wenn der Flow-Builder abgeschlossen ist (d.h., das letzte Element wurde gesendet), obwohl dies auch im Falle einer nicht abgefangenen Exception oder eines Coroutinenabbruchs passiert. In all diesen Fällen können wir einen Listener für den Flow-Abschluss hinzufügen, indem wir die `onCompletion` Methode einsetzen.
 
 {crop-start: 3}
 ```kotlin

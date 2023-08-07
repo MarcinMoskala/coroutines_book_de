@@ -185,7 +185,7 @@ class CoroutineScopeConfiguration {
 
 #### Nutzung von runBlocking
 
-Anstatt Koroutinen auf einem Scope-Objekt zu starten, können wir auch die Funktion `runBlocking` verwenden, die eine Koroutine startet und den aktuellen Thread blockiert, bis diese Koroutine beendet ist. Daher sollte `runBlocking` nur verwendet werden, wenn wir einen Thread blockieren wollen. Die zwei häufigsten Gründe für die Verwendung sind:
+Anstatt Coroutinen auf einem Scope-Objekt zu starten, können wir auch die Funktion `runBlocking` verwenden, die eine Koroutine startet und den aktuellen Thread blockiert, bis diese Koroutine beendet ist. Daher sollte `runBlocking` nur verwendet werden, wenn wir einen Thread blockieren wollen. Die zwei häufigsten Gründe für die Verwendung sind:
 1. Um die `main` Funktion einzuschließen. Dies ist eine korrekte Verwendung von `runBlocking`, da wir den Thread blockieren müssen, bis die von `runBlocking` gestartete Koroutine beendet ist.
 2. Um Testfunktionen einzuschließen. In diesem Fall müssen wir auch den Test-Thread blockieren, so dass der Test nicht beendet wird, bis die Koroutine fertig ist.
 

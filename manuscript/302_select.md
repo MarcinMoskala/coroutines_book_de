@@ -1,6 +1,4 @@
-
-
-## Auswählen
+## `select`
 
 Coroutinen bieten die `select` Funktion an, die es uns ermöglicht, auf das Ergebnis der ersten Coroutine, die abgeschlossen wird, zu warten. Sie bietet auch die Möglichkeit, an den ersten Kanal zu senden, der Platz im Puffer hat, oder vom ersten Kanal zu empfangen, der ein verfügbares Element hat. Dies ermöglicht es uns, Wettläufe zwischen Coroutinen zu machen oder Ergebnisse aus mehreren Quellen zusammenzuführen. Schauen wir uns das in der Praxis an.
 

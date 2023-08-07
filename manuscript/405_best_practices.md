@@ -1,4 +1,3 @@
-
 ## Beste Vorgehensweisen
 
 Ich werde dieses Buch mit meinen bescheidenen besten Vorgehensweisen beenden. Sie sind alle bereits im Buch besprochen worden, dies könnte daher als eine kurze Zusammenfassung betrachtet werden, aber ich hoffe, es wird Ihnen helfen, sie sich zu merken und sie in Ihrer täglichen Praxis anzuwenden.
@@ -44,7 +43,7 @@ Der einzige Unterschied zwischen `withContext` und `coroutineScope` besteht dari
 
 ### Verwenden Sie awaitAll
 
-Die Funktion `awaitAll` sollte gegenüber `map { it.await() }` bevorzugt werden, da sie aufhört zu warten, wenn die erste asynchrone Aufgabe eine Ausnahme wirft. Im Gegensatz dazu wartet `map { it.await() }` diese Koroutinen nacheinander ab, bis sie auf eine stößt, die fehlschlägt.
+Die Funktion `awaitAll` sollte gegenüber `map { it.await() }` bevorzugt werden, da sie aufhört zu warten, wenn die erste asynchrone Aufgabe eine Ausnahme wirft. Im Gegensatz dazu wartet `map { it.await() }` diese Coroutinen nacheinander ab, bis sie auf eine stößt, die fehlschlägt.
 
 ### Suspendierende Funktionen sollten sicher von jedem Thread aus aufgerufen werden können
 
@@ -287,11 +286,11 @@ fun onCleared() {
 ```
 
 
-Auf Android sollten Sie anstelle des Definierens und Abbrechens benutzerdefinierter Geltungsbereiche den `viewModelScope`, `lifecycleScope` und lebenszyklusabhängige Koroutinen-Geltungsbereiche aus den ktx-Bibliotheken verwenden, da diese automatisch abgebrochen werden.
+Auf Android sollten Sie anstelle des Definierens und Abbrechens benutzerdefinierter Geltungsbereiche den `viewModelScope`, `lifecycleScope` und lebenszyklusabhängige Coroutinen-Geltungsbereiche aus den ktx-Bibliotheken verwenden, da diese automatisch abgebrochen werden.
 
 ### Bevor Sie einen Geltungsbereich verwenden, überlegen Sie unter welchen Bedingungen er abgebrochen wird
 
-Eine meiner bevorzugten Heuristiken für die Verwendung von Kotlin Coroutines auf Android ist "die Auswahl des Geltungsbereichs, den Sie verwenden sollten, ist die Entscheidung, wann Sie diese Koroutine abbrechen möchten". Jedes ViewModel bietet seinen eigenen `viewModelScope`, der abgebrochen wird, wenn dieses ViewModel finalisiert wird. Jeder Lifecycle-Eigentümer hat seinen eigenen `lifecycleScope`, der abgebrochen wird, wenn dieser Lebenszyklus abgeschlossen ist. Wir verwenden diese Geltungsbereiche anstelle eines gemeinsamen globalen Geltungsbereichs, weil wir unsere Koroutinen abbrechen möchten, wenn sie nicht benötigt werden. Das Starten einer Koroutine in einem anderen Geltungsbereich bedeutet, dass sie unter anderen Bedingungen abgebrochen wird. Auf `GlobalScope` gestartete Koroutinen werden nie abgebrochen.
+Eine meiner bevorzugten Heuristiken für die Verwendung von Kotlin Coroutines auf Android ist "die Auswahl des Geltungsbereichs, den Sie verwenden sollten, ist die Entscheidung, wann Sie diese Koroutine abbrechen möchten". Jedes ViewModel bietet seinen eigenen `viewModelScope`, der abgebrochen wird, wenn dieses ViewModel finalisiert wird. Jeder Lifecycle-Eigentümer hat seinen eigenen `lifecycleScope`, der abgebrochen wird, wenn dieser Lebenszyklus abgeschlossen ist. Wir verwenden diese Geltungsbereiche anstelle eines gemeinsamen globalen Geltungsbereichs, weil wir unsere Coroutinen abbrechen möchten, wenn sie nicht benötigt werden. Das Starten einer Koroutine in einem anderen Geltungsbereich bedeutet, dass sie unter anderen Bedingungen abgebrochen wird. Auf `GlobalScope` gestartete Coroutinen werden nie abgebrochen.
 
 
 ```kotlin
@@ -372,7 +371,7 @@ suspend fun main(): Unit = coroutineScope {
 //sampleEnd
 ```
 
-Es ist möglich, dass ein solcher `Job` abgeschlossen wird, aber nur, wenn seine `complete` Methode zuerst aufgerufen und sein Zustand dann von "Aktiv" zu "Abschluss" geändert wird, wo er wartet, bis seine Kinder fertig sind. Sie können jedoch keine neuen Koroutinen auf abschließenden oder abgeschlossenen Jobs starten. Ein praktischerer Ansatz besteht darin, eine Referenz auf einen Job zu verwenden, um auf seine Kinder zu warten (`job.children.forEach { it.join() }`). In den meisten Fällen ist die einfachste Lösung, auf den Job zu warten, der von einem Koroutinen-Erzeuger erstellt wurde. Die häufigsten Fälle beinhalten das Speichern des aktiven Jobs in einer Variablen oder das Sammeln der Jobs von allen gestarteten Koroutinen.
+Es ist möglich, dass ein solcher `Job` abgeschlossen wird, aber nur, wenn seine `complete` Methode zuerst aufgerufen und sein Zustand dann von "Aktiv" zu "Abschluss" geändert wird, wo er wartet, bis seine Kinder fertig sind. Sie können jedoch keine neuen Coroutinen auf abschließenden oder abgeschlossenen Jobs starten. Ein praktischerer Ansatz besteht darin, eine Referenz auf einen Job zu verwenden, um auf seine Kinder zu warten (`job.children.forEach { it.join() }`). In den meisten Fällen ist die einfachste Lösung, auf den Job zu warten, der von einem Coroutinen-Erzeuger erstellt wurde. Die häufigsten Fälle beinhalten das Speichern des aktiven Jobs in einer Variablen oder das Sammeln der Jobs von allen gestarteten Coroutinen.
 
 ```kotlin
 class SomeService {
