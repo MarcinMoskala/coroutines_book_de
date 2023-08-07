@@ -1,5 +1,3 @@
-
-
 ## Akteur
 
 In der Informatik gibt es ein Modell der nebenläufigen Berechnung, bekannt als das **Akteur-Modell**, bei dem der Akteur das wichtigste Konzept ist. Dies ist eine Berechnungseinheit, die auf eine Nachricht, die sie erhält, parallel reagieren kann:

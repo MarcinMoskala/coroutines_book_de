@@ -1,6 +1,3 @@
-
-
-
 Die Kotlin Coroutines Bibliothek wurde speziell für unsere üblichen Backend- und Android-Anwendungsfälle entwickelt. Das heißt, obwohl jedes Problem auf viele Weisen gelöst werden kann, gibt es für die meisten Situationen anerkannte Muster, die bevorzugt angewendet werden sollten. Einige von ihnen wurden von den Schöpfern der Kotlin Coroutines selbst formuliert, während andere sich aus Diskussionen in unserer Gemeinschaft ergeben haben. Ich habe diese Anwendungsfälle zusammengetragen und möchte meine Vorstellungen darüber präsentieren, wie Kotlin Coroutines bei üblichen Anwendungsfällen und in typischen Anwendungen eingesetzt werden sollten.
 
 Ich habe diese Anwendungsfälle nach den Schichten unterteilt, in denen sie typischerweise eingesetzt werden. Diese drei Schichten sind sowohl für die meisten modernen Backend- als auch Android-Anwendungen gebräuchlich:
